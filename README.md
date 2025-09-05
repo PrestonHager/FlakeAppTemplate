@@ -119,3 +119,16 @@ In your `home.nix`:
   home.packages = [ pkgs.<packageName> ];
 }
 ```
+
+## Contributing
+
+Contributions are welcome! If you have a new package type that you would like to add, please create a pull request.
+
+### Creating a Pull Request
+
+1.  **Fork the repository** on GitHub.
+2.  **Clone your fork** to your local machine.
+3.  **Create a new branch** for your changes.
+4.  **Make your changes** and commit them.
+5.  **Push your changes** to your fork.
+6.  **Create a pull request** from your fork to the upstream repository `github:Preston/FlakeAppTemplate`.
