@@ -13,36 +13,11 @@
   # This should be the directory containing the source code.
   src = ../src;
 
-  # The build inputs for the package.
-  # This should be a list of packages that are needed to build the package.
-  # For example, for a Rust project, you would use: [ pkgs.rustc pkgs.cargo ]
-  # For a Python project, you would use: [ pkgs.python3 ]
-  buildInputs = [ pkgs.gcc ];
-
-  # The build command for the package.
-  # This command will be executed in the source directory to build the package.
-  # The output of the build should be placed in the $out directory.
-  # For example, for a Rust project, you would use: ''cargo build --release''
-  # For a Python project, you can leave this empty if you are not building anything.
-  buildCommand = ''
-    make
-  '';
-
-  # The install command for the package.
-  # This command will be executed to install the package.
-  # For example, for a Rust project, you would use:
-  # ''
-  #   mkdir -p $out/bin
-  #   cp target/release/my-package $out/bin
-  # ''
-  # For a Python project, you would use:
-  # ''
-  #   mkdir -p $out/bin
-  #   cp my-package.py $out/bin/my-package
-  #   chmod +x $out/bin/my-package
-  # ''
-  installCommand = ''
-    mkdir -p $out/bin
-    cp my-package $out/bin
-  '';
+  # The type of the package to build.
+  # This should be the name of a file in the nix/packages directory (without the .nix extension).
+  # For example, to build a C project, you would use: "c"
+  # For a Rust project, you would use: "rust"
+  # For a Python project, you would use: "python"
+  # For an Expo project, you would use: "expo"
+  packageType = "c";
 }

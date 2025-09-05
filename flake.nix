@@ -13,15 +13,11 @@
       # Import the variables from the variables.nix file.
       vars = (import ./nix/variables.nix) { pkgs = system; };
 
+      # Import the package-specific attributes.
+      packageAttrs = (import ./nix/packages/${vars.packageType}.nix) { pkgs = system; };
+
       # Create the package using the variables.
-      pkg = system.stdenv.mkDerivation {
-        name = vars.packageName;
-        version = vars.version;
-        src = vars.src;
-        buildInputs = vars.buildInputs;
-        buildPhase = vars.buildCommand;
-        installPhase = vars.installCommand;
-      };
+      pkg = system.stdenv.mkDerivation (vars // packageAttrs);
     in
     {
       # The default package for the flake.
@@ -31,7 +27,7 @@
       # The development shell for the flake.
       # This can be entered with `nix develop`.
       devShell.x86_64-linux = system.mkShell {
-        buildInputs = vars.buildInputs;
+        buildInputs = packageAttrs.buildInputs;
       };
 
       # The overlay for the flake.

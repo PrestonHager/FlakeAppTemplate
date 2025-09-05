@@ -5,7 +5,7 @@ This is a template repository for creating applications using Nix Flakes.
 ## Usage
 
 1.  **Copy this repository.**
-2.  **Modify `nix/variables.nix`** to match your project's needs.
+2.  **Modify `nix/variables.nix`** to set your package's name, version, and type.
 3.  **Write your code** in the `src` directory.
 
 ## Building
@@ -46,127 +46,22 @@ nix build .#release.x86_64-linux
 
 This will create a tarball of the package in the `result` directory.
 
-## Language Examples
+## Package Types
 
-### C
+This template uses a modular system for defining package types. The package type is selected in the `nix/variables.nix` file by setting the `packageType` variable.
 
-**`nix/variables.nix`**
+The available package types are defined as `.nix` files in the `nix/packages` directory. Each file defines the `buildInputs`, `buildCommand`, and `installCommand` for a specific language or framework.
 
-```nix
-{
-  pkgs, ...
-}: {
-  packageName = "my-c-app";
-  buildInputs = [ pkgs.gcc pkgs.gnumake ];
-  buildCommand = "make";
-  installCommand = ''
-    mkdir -p $out/bin
-    cp my-c-app $out/bin
-  '';
-}
-```
+You can easily add your own package types by creating a new `.nix` file in the `nix/packages` directory.
 
-**`src/main.c`**
+### Included Package Types
 
-```c
-#include <stdio.h>
+*   **c**: For C projects.
+*   **rust**: For Rust projects.
+*   **python**: For Python projects.
+*   **expo**: For Expo (React Native) projects.
 
-int main() {
-    printf("Hello, C!\n");
-    return 0;
-}
-```
-
-**`src/Makefile`**
-
-```makefile
-all:
-	gcc -o my-c-app main.c
-```
-
-### Rust
-
-**`nix/variables.nix`**
-
-```nix
-{
-  pkgs, ...
-}: {
-  packageName = "my-rust-app";
-  buildInputs = [ pkgs.rustc pkgs.cargo ];
-  buildCommand = "cargo build --release";
-  installCommand = ''
-    mkdir -p $out/bin
-    cp target/release/my-rust-app $out/bin
-  '';
-}
-```
-
-**`src/main.rs`**
-
-```rust
-fn main() {
-    println!("Hello, Rust!");
-}
-```
-
-**`src/Cargo.toml`**
-
-```toml
-[package]
-name = "my-rust-app"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-```
-
-### Python
-
-**`nix/variables.nix`**
-
-```nix
-{
-  pkgs, ...
-}: {
-  packageName = "my-python-app";
-  buildInputs = [ pkgs.python3 ];
-  buildCommand = ""; # No build command needed
-  installCommand = ''
-    mkdir -p $out/bin
-    cp my-python-app.py $out/bin/my-python-app
-    chmod +x $out/bin/my-python-app
-  '';
-}
-```
-
-**`src/my-python-app.py`**
-
-```python
-#!/usr/bin/env python
-
-print("Hello, Python!")
-```
-
-### Expo (React Native)
-
-**`nix/variables.nix`**
-
-```nix
-{
-  pkgs, ...
-}: {
-  packageName = "my-expo-app";
-  buildInputs = [ pkgs.nodejs pkgs.yarn ];
-  buildCommand = "yarn install && yarn build";
-  installCommand = ''
-    mkdir -p $out/web-build
-    cp -r web-build/* $out/web-build
-  '';
-}
-```
-
-To create an Expo app, you can run `npx create-expo-app` in the `src` directory.
+For more details on how to use each package type, please refer to the corresponding file in the `nix/packages` directory.
 
 ## Overlay
 
