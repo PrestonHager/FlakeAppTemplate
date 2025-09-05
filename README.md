@@ -61,6 +61,27 @@ You can easily add your own package types by creating a new `.nix` file in the `
 *   **python**: For Python projects.
 *   **expo**: For Expo (React Native) projects.
 
+### Adding a New App Type
+
+To add a new app type, you need to create a new `.nix` file in the `nix/packages` directory. This file should return an attribute set with the `buildInputs`, `buildCommand`, and `installCommand` for your language or framework.
+
+For example, to add a new app type for Go, you would create a new file called `nix/packages/go.nix` with the following content:
+
+```nix
+{ pkgs }:
+
+{
+  buildInputs = [ pkgs.go ];
+  buildCommand = "go build -o my-go-app";
+  installCommand = ''
+    mkdir -p $out/bin
+    cp my-go-app $out/bin
+  '';
+}
+```
+
+Then, in your `nix/variables.nix` file, you would set the `packageType` to `"go"`.
+
 For more details on how to use each package type, please refer to the corresponding file in the `nix/packages` directory.
 
 ## Overlay
