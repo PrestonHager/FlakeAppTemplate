@@ -55,8 +55,7 @@ This will create a tarball of the package in the `result` directory.
 ```nix
 {
   pkgs, ...
-}:
-{
+}: {
   packageName = "my-c-app";
   buildInputs = [ pkgs.gcc pkgs.gnumake ];
   buildCommand = "make";
@@ -92,8 +91,7 @@ all:
 ```nix
 {
   pkgs, ...
-}:
-{
+}: {
   packageName = "my-rust-app";
   buildInputs = [ pkgs.rustc pkgs.cargo ];
   buildCommand = "cargo build --release";
@@ -130,8 +128,7 @@ edition = "2021"
 ```nix
 {
   pkgs, ...
-}:
-{
+}: {
   packageName = "my-python-app";
   buildInputs = [ pkgs.python3 ];
   buildCommand = ""; # No build command needed
@@ -158,8 +155,7 @@ print("Hello, Python!")
 ```nix
 {
   pkgs, ...
-}:
-{
+}: {
   packageName = "my-expo-app";
   buildInputs = [ pkgs.nodejs pkgs.yarn ];
   buildCommand = "yarn install && yarn build";
